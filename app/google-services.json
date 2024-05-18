@@ -24,25 +24,6 @@
           "other_platform_oauth_client": []
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:509351658259:android:51ee2d0ddcff29350990e6",
-        "android_client_info": {
-          "package_name": "com.example.moviedatabaseapp"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCVIqpzrwguSurNzIRjXVtQhqeGxyq4Ph8"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
     }
   ],
   "configuration_version": "1"

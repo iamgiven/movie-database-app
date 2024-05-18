@@ -40,4 +40,3 @@ class MovieAdapter(private val context: Context, private val movieList: List<Mov
         return movieList.size
     }
 }
-

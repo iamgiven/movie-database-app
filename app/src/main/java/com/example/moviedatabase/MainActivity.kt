@@ -1,6 +1,7 @@
 package com.example.moviedatabase
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         movieRecyclerView = findViewById(R.id.movieRecyclerView)
         movieRecyclerView.layoutManager = LinearLayoutManager(this)
         movieList = mutableListOf()
+        movieAdapter = MovieAdapter(this, movieList)
+        movieRecyclerView.adapter = movieAdapter
 
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -32,13 +35,12 @@ class MainActivity : AppCompatActivity() {
                             movieList.add(movie)
                         }
                     }
-                    movieAdapter = MovieAdapter(this@MainActivity, movieList)
-                    movieRecyclerView.adapter = movieAdapter
+                    movieAdapter.notifyDataSetChanged()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Handle error
+                Log.e("MainActivity", "Database error: ${error.message}")
             }
         })
     }
