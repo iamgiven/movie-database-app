@@ -1,9 +1,10 @@
 package com.example.moviedatabase
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 
@@ -20,9 +21,13 @@ class MainActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance().getReference("movies")
         movieRecyclerView = findViewById(R.id.movieRecyclerView)
-        movieRecyclerView.layoutManager = LinearLayoutManager(this)
+        movieRecyclerView.layoutManager = GridLayoutManager(this, 3)
         movieList = mutableListOf()
-        movieAdapter = MovieAdapter(this, movieList)
+        movieAdapter = MovieAdapter(this, movieList) { movie ->
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("movie", movie)
+            startActivity(intent)
+        }
         movieRecyclerView.adapter = movieAdapter
 
         database.addValueEventListener(object : ValueEventListener {

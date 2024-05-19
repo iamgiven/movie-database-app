@@ -25,6 +25,9 @@
             </intent-filter>
         </activity>
 
+        <!-- Tambahkan DetailActivity di sini -->
+        <activity android:name=".DetailActivity" android:exported="true" />
+
     </application>
 
 </manifest>

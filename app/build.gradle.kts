@@ -46,4 +46,5 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("org.jetbrains.kotlin:kotlin-parcelize-runtime:1.8.0")
 }
