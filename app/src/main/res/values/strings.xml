@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Movie Database App</string>
+    <string name="poster_description">Poster film</string>
+    <string name="favorite_button_description">Tambahkan ke favorit</string>
+    <string name="description_description">Deskripsi film</string>
+    <string name="saved_movies">Saved Movies</string>
 </resources>

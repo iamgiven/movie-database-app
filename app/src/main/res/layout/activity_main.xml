@@ -4,18 +4,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:queryHint="Search movies"
+        android:layout_alignParentTop="true" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movieRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Title"
-        android:textSize="20sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"/>
 
 </RelativeLayout>
