@@ -3,5 +3,5 @@
     <string name="poster_description">Poster film</string>
     <string name="favorite_button_description">Tambahkan ke favorit</string>
     <string name="description_description">Deskripsi film</string>
-    <string name="saved_movies">Saved Movies</string>
+    <string name="saved_movies_title">Saved Movies</string>
 </resources>

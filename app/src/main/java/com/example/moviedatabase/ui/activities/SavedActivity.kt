@@ -13,7 +13,6 @@ import com.example.moviedatabase.database.MovieDatabase
 import com.example.moviedatabase.database.MovieEntity
 import com.example.moviedatabase.models.Movie
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -26,6 +25,9 @@ class SavedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_saved)
+
+        // Atur judul activity
+        title = getString(R.string.saved_movies_title)
 
         savedRecyclerView = findViewById(R.id.savedRecyclerView)
         savedRecyclerView.layoutManager = GridLayoutManager(this, 3)
