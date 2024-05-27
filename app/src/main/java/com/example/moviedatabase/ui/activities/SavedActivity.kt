@@ -1,17 +1,21 @@
 package com.example.moviedatabase.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviedatabase.R
 import com.example.moviedatabase.adapters.SavedMovieAdapter
 import com.example.moviedatabase.database.MovieDao
 import com.example.moviedatabase.database.MovieDatabase
+import com.example.moviedatabase.database.MovieEntity
+import com.example.moviedatabase.models.Movie
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SavedActivity : AppCompatActivity() {
 
@@ -24,18 +28,28 @@ class SavedActivity : AppCompatActivity() {
         setContentView(R.layout.activity_saved)
 
         savedRecyclerView = findViewById(R.id.savedRecyclerView)
-        savedRecyclerView.layoutManager = LinearLayoutManager(this)
-        savedMovieAdapter = SavedMovieAdapter()
+        savedRecyclerView.layoutManager = GridLayoutManager(this, 3)
+        savedMovieAdapter = SavedMovieAdapter { movie ->
+            val intent = Intent(this, DetailActivity::class.java)
+            intent.putExtra("movie", movie.toMovie()) // Konversi MovieEntity menjadi Movie
+            startActivity(intent)
+        }
+        savedRecyclerView.adapter = savedMovieAdapter
 
         movieDao = MovieDatabase.getDatabase(this).movieDao()
 
         // Retrieve saved movies from Room database
-        GlobalScope.launch(Dispatchers.Main) {
-            movieDao.getAllFavoriteMovies().collect { savedMovies ->
-                savedMovieAdapter.setMovies(savedMovies)
+        lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+                movieDao.getAllFavoriteMovies().collect { savedMovies ->
+                    savedMovieAdapter.setMovies(savedMovies)
+                }
             }
         }
+    }
 
-        savedRecyclerView.adapter = savedMovieAdapter
+    // Fungsi ekstensi untuk konversi MovieEntity menjadi Movie
+    private fun MovieEntity.toMovie(): Movie {
+        return Movie(id, title, description, imgPoster, releaseDate)
     }
 }

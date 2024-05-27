@@ -11,17 +11,17 @@ import com.bumptech.glide.Glide
 import com.example.moviedatabase.R
 import com.example.moviedatabase.database.MovieEntity
 
-class SavedMovieAdapter : RecyclerView.Adapter<SavedMovieAdapter.SavedMovieViewHolder>() {
+class SavedMovieAdapter(private val onItemClick: (MovieEntity) -> Unit) : RecyclerView.Adapter<SavedMovieAdapter.SavedMovieViewHolder>() {
 
     private var savedMovies: List<MovieEntity> = listOf()
 
-    class SavedMovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class SavedMovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgPoster: ImageView = itemView.findViewById(R.id.imgPoster)
         val title: TextView = itemView.findViewById(R.id.title)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedMovieViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.saved_movie_item, parent, false)
         return SavedMovieViewHolder(view)
     }
 
@@ -30,6 +30,10 @@ class SavedMovieAdapter : RecyclerView.Adapter<SavedMovieAdapter.SavedMovieViewH
         holder.title.text = movie.title
         val imgUri = movie.imgPoster.toUri().buildUpon().scheme("https").build()
         Glide.with(holder.itemView.context).load(imgUri).into(holder.imgPoster)
+
+        holder.itemView.setOnClickListener {
+            onItemClick(movie)
+        }
     }
 
     override fun getItemCount(): Int {

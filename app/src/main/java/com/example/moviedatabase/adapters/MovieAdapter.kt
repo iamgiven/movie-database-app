@@ -27,6 +27,7 @@ class MovieAdapter(
 ) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     private val movieDao = MovieDatabase.getDatabase(context).movieDao()
+    private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgPoster: ImageView = itemView.findViewById(R.id.imgPoster)
@@ -47,7 +48,7 @@ class MovieAdapter(
 
         holder.itemView.setOnClickListener { itemClickListener(movie) }
 
-        CoroutineScope(Dispatchers.Main).launch {
+        coroutineScope.launch {
             val isFavorite = withContext(Dispatchers.IO) {
                 movieDao.getMovieById(movie.id).firstOrNull() != null
             }
@@ -57,9 +58,9 @@ class MovieAdapter(
         }
 
         holder.favoriteButton.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
+            coroutineScope.launch {
                 val isFavorite = withContext(Dispatchers.IO) {
-                    movieDao.getMovieById(movie.id) != null
+                    movieDao.getMovieById(movie.id).firstOrNull() != null
                 }
                 if (isFavorite) {
                     withContext(Dispatchers.IO) {
